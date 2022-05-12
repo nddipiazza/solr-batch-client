@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+    id "com.github.johnrengelman.shadow" version "6.1.0"
+}
+
+group 'com.lucidworks.solr'
+version '1.0.0'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+shadowJar {
+    zip64 true
+    archiveClassifier = ''
+    // this is need for spring boot application
+    exclude 'META-INF/*.SF'
+    exclude 'META-INF/*.DSA'
+    exclude 'META-INF/*.RSA'
+
+    manifest {
+        attributes 'Main-Class': 'com.lucidworks.solr.PartialUpdateRemoveAllUsers'
+    }
+    mergeServiceFiles()
+}
+
+dependencies {
+    implementation 'org.apache.solr:solr-solrj:8.11.1'
+    implementation group: 'org.apache.commons', name: 'commons-csv', version: '1.9.0'
+    implementation group: 'args4j', name: 'args4j', version: '2.32'
+    implementation group: 'com.jayway.jsonpath', name: 'json-path', version: '2.7.0'
+    implementation group: 'com.jayway.jsonpath', name: 'json-path', version: '2.7.0'
+    implementation "com.google.guava:guava:28.2-jre"
+    implementation 'org.slf4j:slf4j-api:1.7.36'
+    implementation 'org.slf4j:slf4j-simple:1.7.36'
+
+}
